@@ -1,0 +1,64 @@
+{
+  "name": "TernarySOTA_DepthRecur_TTT_ParResid",
+  "date": "2026-04-25",
+  "description": "Ternary (BitNet b1.58) architecture from Track B + Track A winning techniques: 3-layer depth recurrence, parallel residuals (layers 7-9), QK-Gain 5.25, Legal Score-First TTT",
+  "architecture": {
+    "num_layers": 10,
+    "model_dim": 768,
+    "num_heads": 8,
+    "num_kv_heads": 4,
+    "mlp_mult": 4,
+    "embed_dim": 254,
+    "vocab_size": 8192,
+    "activation": "relu2",
+    "rope_type": "yarn",
+    "softcap_type": "poly",
+    "quantization": "ternary_ste_base3_lzma",
+    "depth_recurrence_iters": 3,
+    "depth_recurrence_start_layer": 2,
+    "parallel_residuals_from_layer": 7,
+    "unet_skip_connections": true
+  },
+  "training": {
+    "optimizer": "NeoMuon (3 Newton-Schulz steps) + Adam",
+    "matrix_lr": 0.04,
+    "scalar_lr": 0.02,
+    "tied_embed_lr": 0.02,
+    "muon_momentum": 0.95,
+    "warmdown_fraction": 0.2,
+    "batch_tokens": 524288,
+    "seq_len": 1024,
+    "wallclock_cap_s": 599,
+    "depth_recurrence_activated_at_frac": 0.35
+  },
+  "eval": {
+    "sliding_eval": true,
+    "sliding_stride": 16,
+    "temperature_scaling": true,
+    "ttt_enabled": true,
+    "ttt_lr": 0.02,
+    "ttt_epochs": 3,
+    "ttt_chunk_size": 32768
+  },
+  "parameter_count": {
+    "ternary_params": 64900000,
+    "fp8_params": 2500000,
+    "total": 67400000
+  },
+  "expected_artifact_mb": 15.97,
+  "expected_bpb_range": {
+    "optimistic": 1.085,
+    "realistic": 1.100,
+    "pessimistic": 1.115,
+    "note": "Honest estimate: likely 1.090-1.110. Does not expect to beat Track A's 1.0810 on first attempt, but explores a fundamentally different optimization direction. Track B has 2.4x more parameters per byte than Track A's int6; question is whether ternary expressiveness gap closes with these techniques."
+  },
+  "track_b_baseline_bpb": 1.1570,
+  "track_a_sota_bpb": 1.0810,
+  "technique_sources": {
+    "ternary_architecture": "Track B (Ciprian-Florin Ifrim, 2026-03-24)",
+    "depth_recurrence": "Track A (@clarkkev, @dexhunter, PR #1331, #1437)",
+    "parallel_residuals": "Track A (@Robby955, @msisovic, PR #1412)",
+    "legal_ttt": "Track A (@dexhunter, @abaybektursun, PR #549, #1413)",
+    "qk_gain_525": "Track A (@X-Abhishek-X, PR #1445)"
+  }
+}

@@ -1,0 +1,8 @@
+# Core dependencies (same as Track B)
+torch>=2.9.1
+numpy
+sentencepiece
+# Flash Attention 3 (Hopper native kernels — H100 only)
+# Install manually: pip install flash_attn_3 --no-deps \
+#   --find-links https://windreamer.github.io/flash-attention3-wheels/cu128_torch291/
+# brotli  # only needed if comparing Brotli vs LZMA compression; not required for submission
