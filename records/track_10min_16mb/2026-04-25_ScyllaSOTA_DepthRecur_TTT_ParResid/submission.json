@@ -1,0 +1,9 @@
+{
+  "name": "ScyllaSOTA: Scylla tokenizer + fixed byte accounting + Track A SOTA stack",
+  "val_bpb": "TBD",
+  "bytes_total": "TBD",
+  "blurb": "Scylla TokenMonster 998-token vocab with fixed byte accounting (86-token C/D/W marker bug) + Full Hessian GPTQ int6 + XSA-11 + FA3 + 3-layer depth recurrence (layers 3-5, activates at 35%) + parallel residuals (layers 7-9, GPT-J style) + QK-Gain 5.25 + Legal Score-First TTT (SGD lr=0.01, 3 epochs/chunk). Expected: sub-0.93 bpb.",
+  "author": "icryo",
+  "github_id": "icryo",
+  "date": "2026-04-25"
+}
